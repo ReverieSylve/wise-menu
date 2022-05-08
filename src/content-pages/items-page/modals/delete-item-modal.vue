@@ -1,17 +1,16 @@
 <script setup>
 import { useFetch } from '@vueuse/core'
-defineProps({
+const props = defineProps({
   item: Object
 })
 const emit = defineEmits(['item-deleted'])
 
 let opened = $ref(false)
 const open = () => (opened = true)
-
-const deleteItem = async item => {
-  await useFetch(`api/items/${item.id}`).delete().text()
-  opened = false
+const deleteItem = async () => {
+  await useFetch(`api/items/${props.item.id}`).delete().text()
   emit('item-deleted')
+  opened = false
 }
 
 defineExpose({
@@ -20,21 +19,35 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="opened" title="Create" width="30%">
-    <span
-      class="modal-body-text">Are you sure that you want to delete {{item.title}}.</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="opened = false">Cancel</el-button>
-        <el-button type="primary" @click="deleteItem(item)">Delete</el-button>
-      </span>
-    </template>
+  <v-dialog v-model="opened">
+    <v-card
+      title="Delete Item"
+    >
+      <template class="mdi-window-close" #append>
+        <v-icon icon="mdi-window-close" @click="opened = false"/>
+      </template>
 
-  </el-dialog>
+      <v-card-text>
+        Are you sure you want to delete "{{item.name}}"?
+      </v-card-text>
+      <v-card-actions class="pa-6">
+        <v-spacer/>
+        <v-btn
+          color="blue-darken-1"
+          variant="outlined"
+          @click="opened = false"
+        >
+          Cancel
+        </v-btn>
+        <v-btn
+          color="info"
+          variant="contained"
+          @click="deleteItem"
+        >
+          Delete
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
-<style>
-.modal-body-text {
-  word-break: normal;
-}
-</style>

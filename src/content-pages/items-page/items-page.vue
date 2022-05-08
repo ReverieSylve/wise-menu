@@ -1,21 +1,21 @@
 <script setup>
 import {useFetch} from '@vueuse/core'
 import CreateItemModal from './modals/create-item-modal.vue'
-// import DeleteItemModal from './modals/delete-item-modal.vue'
+import DeleteItemModal from './modals/delete-item-modal.vue'
 import ItemCard from './partials/item-card.vue'
 
 const {data: tasks = [], execute: fetchItems} = useFetch('api/items').get().json()
-//
-// let clickedItem = $ref({})
-//
+
+let clickedItem = $ref({})
+
 const createItemModal = $ref(null)
 const openCreateItemModal = () => (createItemModal.open())
-//
-// const deleteItemModal = $ref(null)
-// const openDeleteItemModal = item => {
-//   clickedItem = item
-//   deleteItemModal.open()
-// }
+
+const deleteItemModal = $ref(null)
+const openDeleteItemModal = item => {
+  clickedItem = item
+  deleteItemModal.open()
+}
 
 </script>
 
@@ -24,14 +24,14 @@ const openCreateItemModal = () => (createItemModal.open())
 
   <v-divider class="my-5"/>
 
-  <section class="" v-if="tasks?.length">
-    <item-card v-for="task of tasks" :item="task"/>
+  <section v-if="tasks?.length">
+    <item-card v-for="task of tasks" :item="task" @delete-item="openDeleteItemModal"/>
   </section>
 
   <no-data v-else/>
 
   <create-item-modal ref="createItemModal" @item-created="fetchItems"/>
-  <!--    <delete-item-modal :item="clickedItem" @item-deleted="fetchItems" ref="deleteItemModal"/>-->
+  <delete-item-modal :item="clickedItem" @item-deleted="fetchItems" ref="deleteItemModal"/>
 
 </template>
 <style>
