@@ -3,9 +3,11 @@ const props = defineProps({
   item: Object
 })
 
-const emit = defineEmits(['delete-item'])
+const emit = defineEmits(['delete-item', 'edit-item'])
 
 const cardSubtitle = `${props.item.price} UAH - Weight: ${props.item.weight}g`
+
+const editItem = () => (emit('edit-item', props.item))
 
 const deleteItem = () => (emit('delete-item', props.item))
 </script>
@@ -40,6 +42,7 @@ const deleteItem = () => (emit('delete-item', props.item))
         variant="outlined"
         color="info"
         icon="mdi-pencil-outline"
+        @click="editItem"
       ></v-btn>
     </v-card-actions>
   </v-card>

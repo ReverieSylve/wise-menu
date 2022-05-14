@@ -1,19 +1,16 @@
 <script setup>
-import uniqid from 'uniqid'
 import {useFetch} from '@vueuse/core'
 import {watch} from "vue";
 
+const props = defineProps({
+  item: Object
+})
 const emit = defineEmits(['item-created'])
+
 let opened = $ref(false)
 const open = () => (opened = true)
 
 const form = $ref(null)
-const item = $ref({
-  name: '',
-  description: '',
-  weight: 0,
-  price: 0
-})
 const rules = $ref({
   name: [v => !!v || 'Name is required'],
   description: [v => !!v || 'Description is required'],
@@ -28,10 +25,9 @@ watch(
   }
 )
 
-const createItem = async () => {
-  const _payload = {...item, ...{id: uniqid()}}
-  await useFetch('api/items').post(_payload).text()
-  emit('item-created')
+const editItem = async () => {
+  await useFetch(`api/items/${props.item.id}`).put(props.item).text()
+  emit('item-edited')
 
   opened = false
 }
@@ -45,18 +41,18 @@ defineExpose({
 
   <v-dialog v-model="opened">
     <v-card
-      title="Create Item"
-      text="Please fill in all required fields and press 'Create' button."
+      title="Edit Item"
+      text="Please update all required fields and press 'Edit' button."
     >
       <template class="mdi-window-close" #append>
-        <v-icon icon="mdi-window-close" @click="opened = false"/>
+        <v-icon title="Close" icon="mdi-window-close" @click="opened = false"/>
       </template>
 
       <v-card-text>
         <v-form
           ref="form"
           id="form"
-          @submit="createItem"
+          @submit="editItem"
         >
           <v-text-field
             label="Name"
@@ -122,7 +118,7 @@ defineExpose({
           type="submit"
           form="form"
         >
-          Create
+          Update
         </v-btn>
       </v-card-actions>
     </v-card>
