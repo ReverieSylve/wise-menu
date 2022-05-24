@@ -3,7 +3,7 @@ import WiseMenuFrame from './components/wise-menu-frame/wise-menu-frame'
 </script>
 
 <template>
-  <wise-menu-frame/>
+  <wise-menu-frame />
 </template>
 <style>
 
