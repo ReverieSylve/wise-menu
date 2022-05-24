@@ -2,13 +2,13 @@
 import { useFetch } from '@vueuse/core'
 import { watch } from 'vue'
 
-const props = defineProps({
-  item: Object
-})
 const emit = defineEmits(['item-edited'])
-
+let item = $ref(null)
 let opened = $ref(false)
-const open = () => (opened = true)
+const open = _item => {
+  item = _item
+  opened = true
+}
 
 const form = $ref(null)
 const rules = $ref({
@@ -26,7 +26,7 @@ watch(
 )
 
 const editItem = async () => {
-  await useFetch(`api/items/${props.item.id}`).put(props.item).text()
+  await useFetch(`api/items/${item.id}`).put(item).text()
   emit('item-edited')
 
   opened = false

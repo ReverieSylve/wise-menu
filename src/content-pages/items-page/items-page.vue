@@ -13,10 +13,7 @@ const createItemModal = $ref(null)
 const openCreateItemModal = () => (createItemModal.open())
 
 const editItemModal = $ref(null)
-const openEditItemModal = item => {
-  clickedItem = item
-  editItemModal.open()
-}
+const openEditItemModal = item => (editItemModal.open(item))
 
 const deleteItemModal = $ref(null)
 const openDeleteItemModal = item => {
@@ -53,7 +50,6 @@ const openDeleteItemModal = item => {
   />
   <edit-item-modal
     ref="editItemModal"
-    :item="clickedItem"
     @item-edited="fetchItems"
   />
   <delete-item-modal
