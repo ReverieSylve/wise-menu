@@ -1,13 +1,14 @@
 import 'vuetify/styles'
-// import './reset.scss';
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import vuetify from './plugins/vuetify'
-import {router} from './router/router'
+import { router } from './router/router'
+import { createPinia } from 'pinia'
 import App from './App'
 import NoData from './components/no-data/no-data'
 
 const app = createApp(App)
-const plugins = [vuetify, router]
-app.component('no-data', NoData)
+const pinia = createPinia()
+const plugins = [vuetify, router, pinia]
+app.component('NoData', NoData)
 plugins.forEach(plugin => app.use(plugin))
 app.mount('#app')

@@ -1,6 +1,9 @@
 <script setup>
 const props = defineProps({
-  item: Object
+  item: {
+    type: Object,
+    default: null
+  }
 })
 
 const emit = defineEmits(['delete-item', 'edit-item'])
@@ -20,30 +23,30 @@ const deleteItem = () => (emit('delete-item', props.item))
     :title="item.name"
     :subtitle="cardSubtitle"
   >
-
     <v-card-content>
       <span
         class="line-clamp"
-        :title="item.description">
+        :title="item.description"
+      >
 
         {{ item.description }}
 
       </span>
     </v-card-content>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn
         variant="outlined"
         color="error"
         icon="mdi-delete-forever-outline"
         @click="deleteItem"
-      ></v-btn>
+      />
       <v-btn
         variant="outlined"
         color="info"
         icon="mdi-pencil-outline"
         @click="editItem"
-      ></v-btn>
+      />
     </v-card-actions>
   </v-card>
 </template>
