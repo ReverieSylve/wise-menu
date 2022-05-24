@@ -1,14 +1,17 @@
 <script setup>
 import { useFetch } from '@vueuse/core'
 const props = defineProps({
-  item: Object
+  item: {
+    type: Object,
+    default: null
+  }
 })
 const emit = defineEmits(['item-deleted'])
 
 let opened = $ref(false)
 const open = () => (opened = true)
-const deleteItem = async () => {
-  await useFetch(`api/items/${props.item.id}`).delete().text()
+const deleteItem = async id => {
+  await useFetch(`api/items/${id}`).delete().text()
   emit('item-deleted')
   opened = false
 }
@@ -23,15 +26,21 @@ defineExpose({
     <v-card
       title="Delete Item"
     >
-      <template class="mdi-window-close" #append>
-        <v-icon icon="mdi-window-close" @click="opened = false"/>
+      <template
+        #append
+        class="mdi-window-close"
+      >
+        <v-icon
+          icon="mdi-window-close"
+          @click="opened = false"
+        />
       </template>
 
       <v-card-text>
-        Are you sure you want to delete "{{item.name}}"?
+        Are you sure you want to delete "{{ item.name }}"?
       </v-card-text>
       <v-card-actions class="pa-6">
-        <v-spacer/>
+        <v-spacer />
         <v-btn
           color="blue-darken-1"
           variant="outlined"
@@ -42,7 +51,7 @@ defineExpose({
         <v-btn
           color="info"
           variant="contained"
-          @click="deleteItem"
+          @click="deleteItem(item.id)"
         >
           Delete
         </v-btn>
@@ -50,4 +59,3 @@ defineExpose({
     </v-card>
   </v-dialog>
 </template>
-

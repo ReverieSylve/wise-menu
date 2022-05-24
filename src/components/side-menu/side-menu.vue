@@ -1,5 +1,5 @@
 <script setup>
-import {sideMenuRoutes} from '../../router/router'
+import { sideMenuRoutes } from '../../router/router'
 </script>
 
 <template>
@@ -20,5 +20,3 @@ import {sideMenuRoutes} from '../../router/router'
     </v-container>
   </v-navigation-drawer>
 </template>
-
-
