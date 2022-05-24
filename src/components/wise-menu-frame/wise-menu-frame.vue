@@ -5,23 +5,26 @@ import MainFrame from '../main-frame/main-frame'
 
 <template>
   <v-app>
-
     <v-app-bar app>
-      <router-link v-slot="{ navigate }" custom to="/">
-        <h2 @click="navigate">Wise Menu</h2>
+      <router-link
+        v-slot="{ navigate }"
+        custom
+        to="/"
+      >
+        <h2 @click="navigate">
+          Wise Menu
+        </h2>
       </router-link>
     </v-app-bar>
 
-    <side-menu/>
+    <side-menu />
 
     <v-main>
       <v-container fluid>
-        <main-frame/>
+        <main-frame />
       </v-container>
     </v-main>
-
   </v-app>
-
 </template>
 
 <style scoped>
