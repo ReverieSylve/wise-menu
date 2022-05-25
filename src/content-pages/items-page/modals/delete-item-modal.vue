@@ -1,6 +1,6 @@
 <script setup>
 import { useFetch } from '@vueuse/core'
-const props = defineProps({
+defineProps({
   item: {
     type: Object,
     default: null
