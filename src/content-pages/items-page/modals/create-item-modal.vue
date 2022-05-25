@@ -49,7 +49,6 @@ defineExpose({
     >
       <template
         #append
-        class="mdi-window-close"
       >
         <v-icon
           icon="mdi-window-close"

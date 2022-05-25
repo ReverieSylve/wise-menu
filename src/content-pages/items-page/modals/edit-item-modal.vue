@@ -40,16 +40,15 @@ defineExpose({
 <template>
   <v-dialog v-model="opened">
     <v-card
-      title="Edit Item"
       text="Please update all required fields and press 'Edit' button."
+      title="Edit Item"
     >
       <template
         #append
-        class="mdi-window-close"
       >
         <v-icon
-          title="Close"
           icon="mdi-window-close"
+          title="Close"
           @click="opened = false"
         />
       </template>
@@ -62,47 +61,47 @@ defineExpose({
         >
           <v-text-field
             v-model="item.name"
-            label="Name"
-            variant="outlined"
-            density="compact"
             :rules="rules.name"
+            density="compact"
+            label="Name"
             required
+            variant="outlined"
           />
           <v-textarea
             v-model="item.description"
-            variant="outlined"
-            rows="3"
-            density="compact"
             :rules="rules.description"
-            no-resize
+            density="compact"
             label="Description"
+            no-resize
             required
+            rows="3"
+            variant="outlined"
           />
           <v-row>
             <v-col cols="6">
               <v-text-field
                 v-model.number="item.price"
-                suffix="UAH"
-                label="Price"
-                variant="outlined"
-                density="compact"
-                type="number"
-                min="0"
                 :rules="rules.price"
+                density="compact"
+                label="Price"
+                min="0"
                 required
+                suffix="UAH"
+                type="number"
+                variant="outlined"
               />
             </v-col>
             <v-col cols="6">
               <v-text-field
                 v-model.number="item.weight"
-                label="Weight"
-                suffix="g"
-                variant="outlined"
-                density="compact"
-                type="number"
-                min="0"
                 :rules="rules.weight"
+                density="compact"
+                label="Weight"
+                min="0"
                 required
+                suffix="g"
+                type="number"
+                variant="outlined"
               />
             </v-col>
           </v-row>
@@ -119,9 +118,9 @@ defineExpose({
         </v-btn>
         <v-btn
           color="info"
-          variant="contained"
-          type="submit"
           form="form"
+          type="submit"
+          variant="contained"
         >
           Update
         </v-btn>
