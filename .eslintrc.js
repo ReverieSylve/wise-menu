@@ -5,7 +5,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:vue/vue3-recommended'
+    'plugin:vue/vue3-recommended',
+    'prettier'
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
