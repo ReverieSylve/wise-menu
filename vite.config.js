@@ -1,8 +1,6 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vuetify from '@vuetify/vite-plugin'
-
-const path = require('path')
 
 export default defineConfig({
   plugins: [
@@ -23,7 +21,7 @@ export default defineConfig({
       }
     }
   },
-  define: {'process.env': {}},
+  define: { 'process.env': {} },
   resolve: {
     extensions: [
       '.js',
@@ -34,6 +32,5 @@ export default defineConfig({
       '.tsx',
       '.vue',
     ]
-  },
-  // */
+  }
 })
