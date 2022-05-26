@@ -1,8 +1,10 @@
 <script setup>
 import { useFetch } from '@vueuse/core'
+/* eslint-disable no-unused-vars */
 import CreateItemModal from './modals/create-item-modal.vue'
 import EditItemModal from './modals/edit-item-modal.vue'
 import DeleteItemModal from './modals/delete-item-modal.vue'
+/* eslint-disable no-unused-vars */
 import ItemCard from './partials/item-card.vue'
 
 const { data: tasks = [], execute: fetchItems } = useFetch('api/items').get().json()

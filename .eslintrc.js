@@ -8,6 +8,7 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'prettier'
   ],
+  plugins: ['prettier'],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 2020
@@ -15,5 +16,8 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+  },
+  globals: {
+    $ref: false,
   }
 }
