@@ -1,18 +1,22 @@
 <script setup>
-const props = defineProps({
-  item: {
-    type: Object,
-    default: null
+  const props = defineProps({
+    item: {
+      type: Object,
+      default: null
+    }
+  })
+
+  const emit = defineEmits(['delete-item', 'edit-item'])
+
+  const cardSubtitle = `${props.item.price} UAH - Weight: ${props.item.weight}g`
+
+  const editItem = () => {
+    emit('edit-item', props.item)
   }
-})
 
-const emit = defineEmits(['delete-item', 'edit-item'])
-
-const cardSubtitle = `${props.item.price} UAH - Weight: ${props.item.weight}g`
-
-const editItem = () => (emit('edit-item', props.item))
-
-const deleteItem = () => (emit('delete-item', props.item))
+  const deleteItem = () => {
+    emit('delete-item', props.item)
+  }
 </script>
 
 <template>
@@ -28,9 +32,7 @@ const deleteItem = () => (emit('delete-item', props.item))
         class="line-clamp"
         :title="item.description"
       >
-
         {{ item.description }}
-
       </span>
     </v-card-content>
     <v-card-actions>
@@ -51,10 +53,10 @@ const deleteItem = () => (emit('delete-item', props.item))
   </v-card>
 </template>
 <style>
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 </style>
