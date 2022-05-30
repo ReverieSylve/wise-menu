@@ -1,34 +1,30 @@
 <script setup>
-import { useFetch } from '@vueuse/core'
-defineProps({
-  item: {
-    type: Object,
-    default: null
+  import { useFetch } from '@vueuse/core'
+  defineProps({
+    item: {
+      type: Object,
+      default: null
+    }
+  })
+  const emit = defineEmits(['item-deleted'])
+
+  let opened = $ref(false)
+  const open = () => (opened = true)
+  const deleteItem = async id => {
+    await useFetch(`api/items/${id}`).delete().text()
+    emit('item-deleted')
+    opened = false
   }
-})
-const emit = defineEmits(['item-deleted'])
 
-let opened = $ref(false)
-const open = () => (opened = true)
-const deleteItem = async id => {
-  await useFetch(`api/items/${id}`).delete().text()
-  emit('item-deleted')
-  opened = false
-}
-
-defineExpose({
-  open
-})
+  defineExpose({
+    open
+  })
 </script>
 
 <template>
   <v-dialog v-model="opened">
-    <v-card
-      title="Delete Item"
-    >
-      <template
-        #append
-      >
+    <v-card title="Delete Item">
+      <template #append>
         <v-icon
           icon="mdi-window-close"
           @click="opened = false"

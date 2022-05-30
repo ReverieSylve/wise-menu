@@ -1,44 +1,50 @@
 <script setup>
-import uniqid from 'uniqid'
-import { useFetch } from '@vueuse/core'
-import { watch } from 'vue'
+  import uniqid from 'uniqid'
+  import { useFetch } from '@vueuse/core'
+  import { watch } from 'vue'
 
-const emit = defineEmits(['item-created'])
-let opened = $ref(false)
-const open = () => (opened = true)
+  const emit = defineEmits(['item-created'])
+  let opened = $ref(false)
+  const open = () => (opened = true)
 
-const form = $ref(null)
-const item = $ref({
-  name: '',
-  description: '',
-  weight: 0,
-  price: 0
-})
-const rules = $ref({
-  name: [v => !!v || 'Name is required'],
-  description: [v => !!v || 'Description is required'],
-  price: [v => !!v || 'Price is required', v => v > 0 || 'Price should more than 0'],
-  weight: [v => !!v || 'Weight is required', v => v > 0 || 'Weight should more than 0']
-})
+  const form = $ref(null)
+  const item = $ref({
+    name: '',
+    description: '',
+    weight: 0,
+    price: 0
+  })
+  const rules = $ref({
+    name: [v => !!v || 'Name is required'],
+    description: [v => !!v || 'Description is required'],
+    price: [
+      v => !!v || 'Price is required',
+      v => v > 0 || 'Price should more than 0'
+    ],
+    weight: [
+      v => !!v || 'Weight is required',
+      v => v > 0 || 'Weight should more than 0'
+    ]
+  })
 
-watch(
-  () => opened,
-  value => {
-    if (!value) (form.reset())
+  watch(
+    () => opened,
+    value => {
+      if (!value) form.reset()
+    }
+  )
+
+  const createItem = async () => {
+    const _payload = { ...item, ...{ id: uniqid() } }
+    await useFetch('api/items').post(_payload).text()
+    emit('item-created')
+
+    opened = false
   }
-)
 
-const createItem = async () => {
-  const _payload = { ...item, ...{ id: uniqid() } }
-  await useFetch('api/items').post(_payload).text()
-  emit('item-created')
-
-  opened = false
-}
-
-defineExpose({
-  open
-})
+  defineExpose({
+    open
+  })
 </script>
 
 <template>
@@ -47,9 +53,7 @@ defineExpose({
       title="Create Item"
       text="Please fill in all required fields and press 'Create' button."
     >
-      <template
-        #append
-      >
+      <template #append>
         <v-icon
           icon="mdi-window-close"
           @click="opened = false"
@@ -132,15 +136,15 @@ defineExpose({
   </v-dialog>
 </template>
 <style>
-.mdi-window-close {
-  cursor: pointer;
-}
+  .mdi-window-close {
+    cursor: pointer;
+  }
 
-form .v-text-field .v-input__details {
-  padding-inline-start: 0;
-}
+  form .v-text-field .v-input__details {
+    padding-inline-start: 0;
+  }
 
-span.v-text-field__suffix {
-  opacity: 1;
-}
+  span.v-text-field__suffix {
+    opacity: 1;
+  }
 </style>

@@ -1,40 +1,46 @@
 <script setup>
-import { useFetch } from '@vueuse/core'
-import { watch } from 'vue'
+  import { useFetch } from '@vueuse/core'
+  import { watch } from 'vue'
 
-const emit = defineEmits(['item-edited'])
-let item = $ref(null)
-let opened = $ref(false)
-const open = _item => {
-  item = _item
-  opened = true
-}
-
-const form = $ref(null)
-const rules = $ref({
-  name: [v => !!v || 'Name is required'],
-  description: [v => !!v || 'Description is required'],
-  price: [v => !!v || 'Price is required', v => v > 0 || 'Price should more than 0'],
-  weight: [v => !!v || 'Weight is required', v => v > 0 || 'Weight should more than 0']
-})
-
-watch(
-  () => opened,
-  value => {
-    if (!value) (form.reset())
+  const emit = defineEmits(['item-edited'])
+  let item = $ref(null)
+  let opened = $ref(false)
+  const open = _item => {
+    item = _item
+    opened = true
   }
-)
 
-const editItem = async () => {
-  await useFetch(`api/items/${item.id}`).put(item).text()
-  emit('item-edited')
+  const form = $ref(null)
+  const rules = $ref({
+    name: [v => !!v || 'Name is required'],
+    description: [v => !!v || 'Description is required'],
+    price: [
+      v => !!v || 'Price is required',
+      v => v > 0 || 'Price should more than 0'
+    ],
+    weight: [
+      v => !!v || 'Weight is required',
+      v => v > 0 || 'Weight should more than 0'
+    ]
+  })
 
-  opened = false
-}
+  watch(
+    () => opened,
+    value => {
+      if (!value) form.reset()
+    }
+  )
 
-defineExpose({
-  open
-})
+  const editItem = async () => {
+    await useFetch(`api/items/${item.id}`).put(item).text()
+    emit('item-edited')
+
+    opened = false
+  }
+
+  defineExpose({
+    open
+  })
 </script>
 
 <template>
@@ -43,9 +49,7 @@ defineExpose({
       text="Please update all required fields and press 'Edit' button."
       title="Edit Item"
     >
-      <template
-        #append
-      >
+      <template #append>
         <v-icon
           icon="mdi-window-close"
           title="Close"
@@ -129,15 +133,15 @@ defineExpose({
   </v-dialog>
 </template>
 <style>
-.mdi-window-close {
-  cursor: pointer;
-}
+  .mdi-window-close {
+    cursor: pointer;
+  }
 
-form .v-text-field .v-input__details {
-  padding-inline-start: 0;
-}
+  form .v-text-field .v-input__details {
+    padding-inline-start: 0;
+  }
 
-span.v-text-field__suffix {
-  opacity: 1;
-}
+  span.v-text-field__suffix {
+    opacity: 1;
+  }
 </style>
