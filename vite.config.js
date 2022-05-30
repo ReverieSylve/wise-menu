@@ -9,7 +9,7 @@ export default defineConfig({
     }),
     vuetify({
       autoImport: true
-    }),
+    })
   ],
   server: {
     proxy: {
@@ -23,14 +23,6 @@ export default defineConfig({
   },
   define: { 'process.env': {} },
   resolve: {
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ]
+    extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
   }
 })
