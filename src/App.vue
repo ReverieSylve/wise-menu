@@ -5,8 +5,8 @@ import WiseMenuFrame from './components/wise-menu-frame/wise-menu-frame'
 <template>
   <wise-menu-frame />
 </template>
-<style>
 
+<style>
 html {
   font-family: 'Roboto Slab', serif;
 }
@@ -19,7 +19,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 </style>
