@@ -5,8 +5,8 @@
       class="align-center justify-center"
     >
       <v-progress-circular
-        indeterminate
         color="#337ecc"
+        indeterminate
         size="64"
       />
     </v-overlay>

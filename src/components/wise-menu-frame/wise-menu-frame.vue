@@ -1,6 +1,6 @@
 <script setup>
-import SideMenu from '../side-menu/side-menu'
-import MainFrame from '../main-frame/main-frame'
+  import SideMenu from '../side-menu/side-menu'
+  import MainFrame from '../main-frame/main-frame'
 </script>
 
 <template>
@@ -11,9 +11,7 @@ import MainFrame from '../main-frame/main-frame'
         custom
         to="/"
       >
-        <h2 @click="navigate">
-          Wise Menu
-        </h2>
+        <h2 @click="navigate">Wise Menu</h2>
       </router-link>
     </v-app-bar>
 
@@ -28,12 +26,11 @@ import MainFrame from '../main-frame/main-frame'
 </template>
 
 <style scoped>
+  h2 {
+    cursor: pointer;
+  }
 
-h2 {
-  cursor: pointer;
-}
-
-h2:hover {
-  color: #337ecc;
-}
+  h2:hover {
+    color: #337ecc;
+  }
 </style>
