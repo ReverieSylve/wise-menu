@@ -11,7 +11,9 @@ export const useItemsStore = defineStore({
     async fetchItems() {
       this.loading = true
       try {
-        this.items = await fetch('api/itemsskdfjhk').then(response => response.json())
+        this.items = await fetch('api/items').then(response =>
+          response.json()
+        )
       } catch (error) {
         this.error = error
       } finally {
