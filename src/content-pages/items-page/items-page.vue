@@ -1,5 +1,6 @@
 <script setup>
-  import { useFetch } from '@vueuse/core'
+  import { storeToRefs } from 'pinia'
+  import { useItemsStore } from '../../stores/items'
   /* eslint-disable no-unused-vars */
   import CreateItemModal from './modals/create-item-modal.vue'
   import EditItemModal from './modals/edit-item-modal.vue'
@@ -7,9 +8,10 @@
   /* eslint-disable no-unused-vars */
   import ItemCard from './partials/item-card.vue'
 
-  const { data: tasks = [], execute: fetchItems } = useFetch('api/items')
-    .get()
-    .json()
+  const { items } = storeToRefs(useItemsStore())
+  const { fetchItems } = useItemsStore()
+
+  fetchItems()
 
   let clickedItem = $ref({})
 
@@ -40,11 +42,11 @@
 
   <v-divider class="my-5" />
 
-  <section v-if="tasks?.length">
+  <section v-if="items.length">
     <item-card
-      v-for="task of tasks"
-      :key="task.id"
-      :item="task"
+      v-for="item of items"
+      :key="item.id"
+      :item="item"
       @delete-item="openDeleteItemModal"
       @edit-item="openEditItemModal"
     />
