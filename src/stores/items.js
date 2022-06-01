@@ -11,14 +11,32 @@ export const useItemsStore = defineStore({
     async fetchItems() {
       this.loading = true
       try {
-        this.items = await fetch('api/items').then(response =>
-          response.json()
-        )
+        this.items = await fetch('api/items').then(response => response.json())
       } catch (error) {
         this.error = error
       } finally {
         this.loading = false
       }
-    }
+    },
+    async addItem(item) {
+      this.loading = true
+      try {
+        await fetch('api/items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        }).then(() => {
+          this.fetchItems()
+        })
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
+      }
+    },
+    async updateItem(id) {},
+    async deleteItem(id) {}
   }
 })

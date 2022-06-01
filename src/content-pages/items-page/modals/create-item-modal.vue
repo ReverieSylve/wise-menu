@@ -1,11 +1,12 @@
 <script setup>
   import uniqid from 'uniqid'
-  import { useFetch } from '@vueuse/core'
+  import { useItemsStore } from '../../../stores/items'
   import { watch } from 'vue'
 
-  const emit = defineEmits(['item-created'])
   let opened = $ref(false)
   const open = () => (opened = true)
+
+  const { addItem } = useItemsStore()
 
   const form = $ref(null)
   const item = $ref({
@@ -36,9 +37,7 @@
 
   const createItem = async () => {
     const _payload = { ...item, ...{ id: uniqid() } }
-    await useFetch('api/items').post(_payload).text()
-    emit('item-created')
-
+    addItem(_payload)
     opened = false
   }
 
