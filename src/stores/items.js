@@ -62,6 +62,19 @@ export const useItemsStore = defineStore({
         this.loading = false
       }
     },
-    async deleteItem(id) {}
+    async deleteItem(id) {
+      this.loading = true
+      try {
+        await fetch(`api/items/${id}`, {
+          method: 'DELETE'
+        }).then(() => {
+          this.fetchItems()
+        })
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
+      }
+    }
   }
 })

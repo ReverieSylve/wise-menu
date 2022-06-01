@@ -1,18 +1,18 @@
 <script setup>
-  import { useFetch } from '@vueuse/core'
+  import { useItemsStore } from '../../../stores/items'
   defineProps({
     item: {
       type: Object,
       default: null
     }
   })
-  const emit = defineEmits(['item-deleted'])
+
+  const { deleteItem } = useItemsStore()
 
   let opened = $ref(false)
   const open = () => (opened = true)
-  const deleteItem = async id => {
-    await useFetch(`api/items/${id}`).delete().text()
-    emit('item-deleted')
+  const removeItem = id => {
+    deleteItem(id)
     opened = false
   }
 
@@ -46,7 +46,7 @@
         <v-btn
           color="info"
           variant="contained"
-          @click="deleteItem(item.id)"
+          @click="removeItem(item.id)"
         >
           Delete
         </v-btn>
