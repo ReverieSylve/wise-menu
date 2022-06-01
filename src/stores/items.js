@@ -7,6 +7,14 @@ export const useItemsStore = defineStore({
     loading: false,
     error: null
   }),
+  getters: {
+    getItemById(state) {
+      return id => {
+        const item = state.items.find(item => item.id === id)
+        return { ...item }
+      }
+    }
+  },
   actions: {
     async fetchItems() {
       this.loading = true
@@ -36,7 +44,24 @@ export const useItemsStore = defineStore({
         this.loading = false
       }
     },
-    async updateItem(id) {},
+    async updateItem(item) {
+      this.loading = true
+      try {
+        await fetch(`api/items/${item.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        }).then(() => {
+          this.fetchItems()
+        })
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
+      }
+    },
     async deleteItem(id) {}
   }
 })

@@ -11,7 +11,7 @@
   const cardSubtitle = `${props.item.price} UAH - Weight: ${props.item.weight}g`
 
   const editItem = () => {
-    emit('edit-item', props.item)
+    emit('edit-item', props.item.id)
   }
 
   const deleteItem = () => {

@@ -35,7 +35,7 @@
     }
   )
 
-  const createItem = async () => {
+  const createItem = () => {
     const _payload = { ...item, ...{ id: uniqid() } }
     addItem(_payload)
     opened = false

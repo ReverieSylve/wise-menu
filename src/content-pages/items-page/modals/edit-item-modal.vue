@@ -1,14 +1,15 @@
 <script setup>
-  import { useFetch } from '@vueuse/core'
   import { watch } from 'vue'
+  import { useItemsStore } from '../../../stores/items'
 
-  const emit = defineEmits(['item-edited'])
   let item = $ref(null)
   let opened = $ref(false)
   const open = _item => {
     item = _item
     opened = true
   }
+
+  const { updateItem } = useItemsStore()
 
   const form = $ref(null)
   const rules = $ref({
@@ -31,10 +32,8 @@
     }
   )
 
-  const editItem = async () => {
-    await useFetch(`api/items/${item.id}`).put(item).text()
-    emit('item-edited')
-
+  const editItem = () => {
+    updateItem(item)
     opened = false
   }
 

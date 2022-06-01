@@ -6,10 +6,10 @@
   import EditItemModal from './modals/edit-item-modal.vue'
   import DeleteItemModal from './modals/delete-item-modal.vue'
   /* eslint-disable no-unused-vars */
-  import ItemCard from './partials/item-card.vue'
+  import ItemCard from './partials/item-card'
 
   const { items } = storeToRefs(useItemsStore())
-  const { fetchItems } = useItemsStore()
+  const { fetchItems, getItemById } = useItemsStore()
 
   fetchItems()
 
@@ -21,7 +21,8 @@
   }
 
   const editItemModal = $ref(null)
-  const openEditItemModal = item => {
+  const openEditItemModal = id => {
+    const item = getItemById(id)
     editItemModal.open(item)
   }
 
