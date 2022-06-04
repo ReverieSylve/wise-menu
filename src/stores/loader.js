@@ -6,14 +6,6 @@ export const useLoader = defineStore({
     loading: false,
     requestsPending: 0
   }),
-  getters: {
-    getItemById(state) {
-      return id => {
-        const item = state.items.find(item => item.id === id)
-        return { ...item }
-      }
-    }
-  },
   actions: {
     show() {
       this.loading = true
