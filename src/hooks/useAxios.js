@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { useLoaderStore } from '../stores/loader'
+import { useToastersStore } from '../stores/toasters'
 
 export const useAxios = () => {
   const { pending, done } = useLoaderStore()
+  const { setSuccessToaster, setErrorToaster } = useToastersStore()
 
   const instance = axios.create({
     baseURL: 'api/'
@@ -21,12 +23,15 @@ export const useAxios = () => {
 
   instance.interceptors.response.use(
     response => {
-      if (!response.config.hideLoader) done()
+      const { config } = response
+      if (!config.hideLoader) done()
+      if (config.successMessage) setSuccessToaster(config.successMessage)
       return response
     },
     error => {
-      const response = error.response
-      if (!response.config.hideLoader) done()
+      const { config } = error.response
+      if (!config.hideLoader) done()
+      setErrorToaster(config.errorMessage || error.message)
       return Promise.reject(error)
     }
   )
