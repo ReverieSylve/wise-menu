@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia'
-
+import { useAxios } from '../hooks/useAxios'
 export const useItemsStore = defineStore({
   id: 'items',
   state: () => ({
-    items: [],
-    loading: false,
-    error: null
+    items: []
   }),
   getters: {
     getItemById(state) {
@@ -17,64 +15,29 @@ export const useItemsStore = defineStore({
   },
   actions: {
     async fetchItems() {
-      this.loading = true
-      try {
-        this.items = await fetch('api/items').then(response => response.json())
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
+      const { data } = await useAxios().get('items')
+      this.items = data
     },
-    async addItem(item) {
-      this.loading = true
-      try {
-        await fetch('api/items', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(item)
-        }).then(() => {
+    addItem(item) {
+      useAxios()
+        .post('items', item)
+        .then(() => {
           this.fetchItems()
         })
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
     },
-    async updateItem(item) {
-      this.loading = true
-      try {
-        await fetch(`api/items/${item.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(item)
-        }).then(() => {
+    updateItem(item) {
+      useAxios()
+        .put(`items/${item.id}`, item)
+        .then(() => {
           this.fetchItems()
         })
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
     },
-    async deleteItem(id) {
-      this.loading = true
-      try {
-        await fetch(`api/items/${id}`, {
-          method: 'DELETE'
-        }).then(() => {
+    deleteItem(id) {
+      useAxios()
+        .delete(`items/${id}`)
+        .then(() => {
           this.fetchItems()
         })
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
     }
   }
 })
