@@ -22,9 +22,14 @@
 
   const getItem = () => item
 
+  const setItem = _item => {
+    Object.assign(item, _item)
+  }
+
   defineExpose({
     validate,
-    getItem
+    getItem,
+    setItem
   })
 </script>
 
