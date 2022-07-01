@@ -1,8 +1,8 @@
 <script setup>
   import { storeToRefs } from 'pinia'
-  import { useLoaderStore } from '../../stores/loader'
-  import { useToastersStore } from '../../stores/toasters'
-  import WmSpinner from '../wm-spinner/wm-spinner'
+  import { useLoaderStore } from '../../../stores/loader'
+  import { useToastersStore } from '../../../stores/toasters'
+  import WmSpinner from '../../general/wm-spinner/wm-spinner'
 
   const { loading } = storeToRefs(useLoaderStore())
   const { toasters } = storeToRefs(useToastersStore())

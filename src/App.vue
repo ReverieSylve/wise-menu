@@ -1,5 +1,5 @@
 <script setup>
-  import WiseMenuFrame from './components/wise-menu-frame/wise-menu-frame'
+  import WiseMenuFrame from './components/frame/wise-menu-frame/wise-menu-frame'
 </script>
 
 <template>

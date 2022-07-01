@@ -1,5 +1,5 @@
 <script setup>
-  import { sideMenuRoutes } from '../../router/router'
+  import { sideMenuRoutes } from '../../../router/router'
 </script>
 
 <template>
