@@ -27,14 +27,14 @@
     :title="item.name"
     :subtitle="cardSubtitle"
   >
-    <v-card-content>
+    <v-card-text>
       <span
         class="line-clamp"
         :title="item.description"
       >
         {{ item.description }}
       </span>
-    </v-card-content>
+    </v-card-text>
     <v-card-actions>
       <v-spacer />
       <v-btn

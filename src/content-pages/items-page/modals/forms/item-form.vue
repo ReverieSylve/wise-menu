@@ -57,7 +57,7 @@
       <v-col cols="6">
         <v-text-field
           v-model.number="item.price"
-          suffix="UAH"
+          suffix="&#8372;"
           label="Price"
           variant="outlined"
           density="compact"
@@ -85,9 +85,5 @@
 <style>
   div.v-text-field .v-input__details {
     padding-inline-start: 0;
-  }
-
-  span.v-text-field__suffix {
-    opacity: 1;
   }
 </style>

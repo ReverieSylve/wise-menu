@@ -45,7 +45,7 @@
         </v-btn>
         <v-btn
           color="info"
-          variant="contained"
+          variant="flat"
           @click="removeItem(item.id)"
         >
           Delete

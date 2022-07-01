@@ -50,7 +50,7 @@
         </v-btn>
         <v-btn
           color="info"
-          variant="contained"
+          variant="flat"
           @click="createItem()"
         >
           Create
