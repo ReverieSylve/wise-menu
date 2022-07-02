@@ -7,12 +7,9 @@
   })
 </script>
 <template>
-  <div
-    v-if="show"
-    class="text-center"
-  >
+  <div class="text-center">
     <v-overlay
-      :model-value="true"
+      :model-value="show"
       class="align-center justify-center"
     >
       <v-progress-circular

@@ -11,7 +11,16 @@
         custom
         to="/"
       >
-        <h2 @click="navigate">Wise Menu</h2>
+        <div
+          class="d-flex logo"
+          @click="navigate"
+        >
+          <v-avatar
+            class="mr-2"
+            image="src/images/fractal-tree.jpg"
+          />
+          <h2>Wise Menu</h2>
+        </div>
       </router-link>
     </v-app-bar>
 
@@ -26,11 +35,14 @@
 </template>
 
 <style scoped>
-  h2 {
-    cursor: pointer;
+  .logo {
+    transition: transform 0.2s ease-in-out;
   }
 
-  h2:hover {
+  .logo:hover {
+    cursor: pointer;
     color: #337ecc;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
   }
 </style>
