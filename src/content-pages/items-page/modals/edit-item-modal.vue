@@ -1,13 +1,14 @@
 <script setup>
   import { useItemsStore } from '../../../stores/items'
   import ItemForm from './forms/item-form'
+  import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
 
-  let opened = $ref(false)
+  const dialog = $ref(null)
   const form = $ref(null)
 
   const open = item => {
     setTimeout(() => form.setItem(item))
-    opened = true
+    dialog.open()
   }
 
   const { updateItem } = useItemsStore()
@@ -17,7 +18,7 @@
     if (!isValid) return
     const item = form.getItem()
     updateItem(item)
-    opened = false
+    dialog.close()
   }
 
   defineExpose({
@@ -26,43 +27,30 @@
 </script>
 
 <template>
-  <v-dialog v-model="opened">
-    <v-card
-      text="Please update all required fields and press 'Edit' button."
-      title="Edit Item"
-    >
-      <template #append>
-        <v-icon
-          icon="mdi-window-close"
-          title="Close"
-          @click="opened = false"
-        />
-      </template>
-
+  <wm-dialog
+    ref="dialog"
+    title="Edit Item"
+    text="Please update all required fields and press 'Edit' button."
+  >
+    <template #body>
       <item-form ref="form" />
+    </template>
 
-      <v-card-actions class="pa-6">
-        <v-spacer />
-        <v-btn
-          color="blue-darken-1"
-          variant="outlined"
-          @click="opened = false"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          color="info"
-          variant="flat"
-          @click="editItem"
-        >
-          Update
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+    <template #actions>
+      <v-btn
+        color="blue-darken-1"
+        variant="outlined"
+        @click="dialog.close"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        color="info"
+        variant="flat"
+        @click="editItem"
+      >
+        Update
+      </v-btn>
+    </template>
+  </wm-dialog>
 </template>
-<style>
-  .mdi-window-close {
-    cursor: pointer;
-  }
-</style>

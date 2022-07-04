@@ -2,11 +2,14 @@
   import uniqid from 'uniqid'
   import { useItemsStore } from '../../../stores/items'
   import ItemForm from './forms/item-form'
+  import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
 
-  let opened = $ref(false)
-  const open = () => (opened = true)
-
+  const dialog = $ref(null)
   const form = $ref(null)
+
+  const open = () => {
+    dialog.open()
+  }
 
   const { addItem } = useItemsStore()
 
@@ -16,7 +19,7 @@
     const item = form.getItem()
     const _payload = { ...item, ...{ id: uniqid() } }
     addItem(_payload)
-    opened = false
+    dialog.close()
   }
 
   defineExpose({
@@ -25,42 +28,30 @@
 </script>
 
 <template>
-  <v-dialog v-model="opened">
-    <v-card
-      title="Create Item"
-      text="Please fill in all required fields and press 'Create' button."
-    >
-      <template #append>
-        <v-icon
-          icon="mdi-window-close"
-          @click="opened = false"
-        />
-      </template>
-
+  <wm-dialog
+    ref="dialog"
+    title="Create Item"
+    text="Please fill in all required fields and press 'Create' button."
+  >
+    <template #body>
       <item-form ref="form" />
+    </template>
 
-      <v-card-actions class="pa-6">
-        <v-spacer />
-        <v-btn
-          color="blue-darken-1"
-          variant="outlined"
-          @click="opened = false"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          color="info"
-          variant="flat"
-          @click="createItem()"
-        >
-          Create
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+    <template #actions>
+      <v-btn
+        color="blue-darken-1"
+        variant="outlined"
+        @click="dialog.close"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        color="info"
+        variant="flat"
+        @click="createItem()"
+      >
+        Create
+      </v-btn>
+    </template>
+  </wm-dialog>
 </template>
-<style>
-  .mdi-window-close {
-    cursor: pointer;
-  }
-</style>
