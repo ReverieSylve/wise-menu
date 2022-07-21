@@ -1,5 +1,5 @@
 <script setup>
-  import uniqid from 'uniqid'
+  import { v4 as uuidv4 } from 'uuid'
   import { useItemsStore } from '../../../stores/items'
   import ItemForm from './forms/item-form'
   import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
@@ -17,7 +17,7 @@
     const isValid = await form.validate()
     if (!isValid) return
     const item = form.getItem()
-    const _payload = { ...item, ...{ id: uniqid() } }
+    const _payload = { ...item, ...{ id: uuidv4() } }
     addItem(_payload)
     dialog.close()
   }

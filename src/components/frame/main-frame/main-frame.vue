@@ -13,8 +13,7 @@
     :key="index"
     v-model="toaster.show"
     :color="toaster.type"
-    top
-    right
+    location="top right"
     :style="`top: ${index * 60 + 8}px`"
     transition="slide-x-reverse-transition"
   >
