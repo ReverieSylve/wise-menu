@@ -46,6 +46,7 @@
         Cancel
       </v-btn>
       <v-btn
+        id="submit-create-item-button"
         color="info"
         variant="flat"
         @click="createItem()"

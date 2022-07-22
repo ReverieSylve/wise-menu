@@ -37,6 +37,7 @@
   <v-card-text>
     <v-text-field
       v-model="item.name"
+      name="name"
       label="Name"
       variant="outlined"
       density="compact"
@@ -45,6 +46,7 @@
     />
     <v-textarea
       v-model="item.description"
+      name="description"
       variant="outlined"
       rows="3"
       density="compact"
@@ -57,6 +59,7 @@
       <v-col cols="6">
         <v-text-field
           v-model.number="item.price"
+          name="price"
           suffix="&#8372;"
           label="Price"
           variant="outlined"
@@ -69,6 +72,7 @@
       <v-col cols="6">
         <v-text-field
           v-model.number="item.weight"
+          name="weight"
           label="Weight"
           suffix="g"
           variant="outlined"

@@ -35,6 +35,7 @@
 
 <template>
   <v-btn
+    id="create-item-button"
     variant="outlined"
     @click="openCreateItemModal"
   >
