@@ -45,6 +45,7 @@
         Cancel
       </v-btn>
       <v-btn
+        id="submit-edit-item-button"
         color="info"
         variant="flat"
         @click="editItem"

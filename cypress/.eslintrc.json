@@ -3,5 +3,8 @@
   "extends": ["plugin:cypress/recommended"],
   "env": {
     "cypress/globals": true
+  },
+  "rules": {
+    "cypress/no-unnecessary-waiting": 0
   }
 }

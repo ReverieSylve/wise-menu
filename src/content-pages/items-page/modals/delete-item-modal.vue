@@ -43,6 +43,7 @@
         Cancel
       </v-btn>
       <v-btn
+        id="submit-delete-item-button"
         color="info"
         variant="flat"
         @click="removeItem(item.id)"

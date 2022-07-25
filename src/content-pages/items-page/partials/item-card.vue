@@ -8,7 +8,8 @@
 
   const emit = defineEmits(['delete-item', 'edit-item'])
 
-  const cardSubtitle = `${props.item.price} UAH - Weight: ${props.item.weight}g`
+  const getCardSubtitle = ({ price, weight }) =>
+    `${price} UAH - Weight: ${weight}g`
 
   const editItem = () => {
     emit('edit-item', props.item.id)
@@ -25,7 +26,7 @@
     variant="outlined"
     elevation="5"
     :title="item.name"
-    :subtitle="cardSubtitle"
+    :subtitle="getCardSubtitle(item)"
   >
     <v-card-text>
       <span
@@ -38,12 +39,14 @@
     <v-card-actions>
       <v-spacer />
       <v-btn
+        id="delete-item-button"
         variant="outlined"
         color="error"
         icon="mdi-delete-forever-outline"
         @click="deleteItem"
       />
       <v-btn
+        id="edit-item-button"
         variant="outlined"
         color="info"
         icon="mdi-pencil-outline"
