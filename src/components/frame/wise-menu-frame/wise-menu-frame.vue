@@ -12,7 +12,7 @@
         to="/"
       >
         <div
-          class="d-flex logo"
+          class="d-flex logo pa-4"
           @click="navigate"
         >
           <v-avatar

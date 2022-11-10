@@ -61,5 +61,6 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: 3.75rem;
   }
 </style>

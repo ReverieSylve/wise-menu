@@ -44,7 +44,10 @@
 
   <v-divider class="my-5" />
 
-  <section v-if="items.length">
+  <section
+    v-if="items.length"
+    id="items-page-section"
+  >
     <item-card
       v-for="item of items"
       :key="item.id"
