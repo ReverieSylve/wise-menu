@@ -4,9 +4,7 @@ import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
   plugins: [
-    vue({
-      reactivityTransform: true
-    }),
+    vue(),
     vuetify({
       autoImport: true
     })

@@ -1,8 +1,9 @@
 <script setup>
-  import { minValue, required } from '@vuelidate/validators'
+  import { ref, reactive } from 'vue'
   import useValidate from '@vuelidate/core'
+  import { minValue, required } from '@vuelidate/validators'
 
-  let item = $ref({
+  let item = reactive({
     name: '',
     description: '',
     weight: 0,
@@ -16,7 +17,7 @@
     weight: { required, minValue: minValue(0.01) }
   }
 
-  const v$ = $ref(useValidate(rules, item))
+  const { value: v$ } = ref(useValidate(rules, item))
 
   const validate = () => v$.$validate()
 
@@ -37,6 +38,7 @@
   <v-card-text>
     <v-text-field
       v-model="item.name"
+      class="mb-4"
       name="name"
       label="Name"
       variant="outlined"
@@ -46,6 +48,7 @@
     />
     <v-textarea
       v-model="item.description"
+      class="mb-4"
       name="description"
       variant="outlined"
       rows="3"

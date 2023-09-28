@@ -1,35 +1,33 @@
 <script setup>
+  import { ref, reactive } from 'vue'
   import { storeToRefs } from 'pinia'
-  import { useItemsStore } from '../../stores/items'
-  /* eslint-disable no-unused-vars */
+  import ItemCard from './partials/item-card'
   import CreateItemModal from './modals/create-item-modal.vue'
   import EditItemModal from './modals/edit-item-modal.vue'
   import DeleteItemModal from './modals/delete-item-modal.vue'
-  /* eslint-disable no-unused-vars */
-  import ItemCard from './partials/item-card'
+  import { useItemsStore } from '../../stores/items'
 
   const { items } = storeToRefs(useItemsStore())
-  const { fetchItems, getItemById } = useItemsStore()
+  const { fetchItems } = useItemsStore()
 
   fetchItems()
 
-  let clickedItem = $ref({})
+  let clickedItem = reactive({})
 
-  const createItemModal = $ref(null)
+  const createItemModal = ref(null)
   const openCreateItemModal = () => {
-    createItemModal.open()
+    createItemModal.value.open()
   }
 
-  const editItemModal = $ref(null)
-  const openEditItemModal = id => {
-    const item = getItemById(id)
-    editItemModal.open(item)
+  const editItemModal = ref(null)
+  const openEditItemModal = item => {
+    editItemModal.value.open(item)
   }
 
-  const deleteItemModal = $ref(null)
+  const deleteItemModal = ref(null)
   const openDeleteItemModal = item => {
-    clickedItem = item
-    deleteItemModal.open()
+    Object.assign(clickedItem, item)
+    deleteItemModal.value.open()
   }
 </script>
 

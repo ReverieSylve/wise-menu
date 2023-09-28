@@ -15,7 +15,7 @@
         :prepend-icon="icon"
         :title="name"
         :to="path"
-        active-color="#337ecc"
+        color="#337ecc"
       />
     </v-container>
   </v-navigation-drawer>

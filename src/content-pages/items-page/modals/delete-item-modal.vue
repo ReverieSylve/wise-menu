@@ -1,7 +1,7 @@
 <script setup>
-  import { useItemsStore } from '../../../stores/items'
+  import { ref, computed } from 'vue'
   import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
-  import { computed } from 'vue'
+  import { useItemsStore } from '../../../stores/items'
 
   const props = defineProps({
     item: {
@@ -9,18 +9,18 @@
       default: null
     }
   })
-  const dialog = $ref(null)
+  const dialog = ref(null)
   const { deleteItem } = useItemsStore()
   const dialogText = computed(
     () => `Are you sure you want to delete "${props.item.name}"?`
   )
 
   const open = () => {
-    dialog.open()
+    dialog.value.open()
   }
   const removeItem = id => {
     deleteItem(id)
-    dialog.close()
+    dialog.value.close()
   }
 
   defineExpose({

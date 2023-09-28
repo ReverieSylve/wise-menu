@@ -11,12 +11,8 @@
   const getCardSubtitle = ({ price, weight }) =>
     `${price} UAH - Weight: ${weight}g`
 
-  const editItem = () => {
-    emit('edit-item', props.item.id)
-  }
-
-  const deleteItem = () => {
-    emit('delete-item', props.item)
+  const dispatchEvent = eventName => {
+    emit(eventName, props.item)
   }
 </script>
 
@@ -43,14 +39,14 @@
         variant="outlined"
         color="error"
         icon="mdi-delete-forever-outline"
-        @click="deleteItem"
+        @click="dispatchEvent('delete-item')"
       />
       <v-btn
         id="edit-item-button"
         variant="outlined"
         color="info"
         icon="mdi-pencil-outline"
-        @click="editItem"
+        @click="dispatchEvent('edit-item')"
       />
     </v-card-actions>
   </v-card>

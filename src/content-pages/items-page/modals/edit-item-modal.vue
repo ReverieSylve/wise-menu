@@ -1,24 +1,26 @@
 <script setup>
-  import { useItemsStore } from '../../../stores/items'
-  import ItemForm from './forms/item-form'
+  import { ref } from 'vue'
   import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
+  import ItemForm from './forms/item-form'
+  import { useItemsStore } from '../../../stores/items'
 
-  const dialog = $ref(null)
-  const form = $ref(null)
+  const dialog = ref(null)
+  const form = ref(null)
 
   const open = item => {
-    setTimeout(() => form.setItem(item))
-    dialog.open()
+    // provide/inject
+    setTimeout(() => form.value.setItem(item))
+    dialog.value.open()
   }
 
   const { updateItem } = useItemsStore()
 
   const editItem = async () => {
-    const isValid = await form.validate()
+    const isValid = await form.value.validate()
     if (!isValid) return
-    const item = form.getItem()
+    const item = form.value.getItem()
     updateItem(item)
-    dialog.close()
+    dialog.value.close()
   }
 
   defineExpose({

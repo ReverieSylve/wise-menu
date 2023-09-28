@@ -1,30 +1,29 @@
 <script setup>
+  import { ref } from 'vue'
+  // Use native js approach
   import { v4 as uuidv4 } from 'uuid'
-  import { useItemsStore } from '../../../stores/items'
-  import ItemForm from './forms/item-form'
   import WmDialog from '../../../components/general/wm-dialog/wm-dialog'
+  import ItemForm from './forms/item-form'
+  import { useItemsStore } from '../../../stores/items'
 
-  const dialog = $ref(null)
-  const form = $ref(null)
+  const dialog = ref(null)
+  const form = ref(null)
 
   const open = () => {
-    dialog.open()
+    dialog.value.open()
   }
-
   const { addItem } = useItemsStore()
 
   const createItem = async () => {
-    const isValid = await form.validate()
+    const isValid = await form.value.validate()
     if (!isValid) return
-    const item = form.getItem()
+    const item = form.value.getItem()
     const _payload = { ...item, ...{ id: uuidv4() } }
     addItem(_payload)
-    dialog.close()
+    dialog.value.close()
   }
 
-  defineExpose({
-    open
-  })
+  defineExpose({ open })
 </script>
 
 <template>
@@ -49,7 +48,7 @@
         id="submit-create-item-button"
         color="info"
         variant="flat"
-        @click="createItem()"
+        @click="createItem"
       >
         Create
       </v-btn>

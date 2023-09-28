@@ -1,4 +1,6 @@
 <script setup>
+  import { ref } from 'vue'
+
   defineProps({
     title: {
       type: String,
@@ -7,21 +9,28 @@
     text: {
       type: String,
       default: 'Dialog Text'
+    },
+    size: {
+      type: String,
+      default: 'large'
     }
   })
-  let opened = $ref(false)
+  let opened = ref(false)
   const open = () => {
-    opened = true
+    opened.value = true
   }
   const close = () => {
-    opened = false
+    opened.value = false
   }
 
   defineExpose({ open, close })
 </script>
 
 <template>
-  <v-dialog v-model="opened">
+  <v-dialog
+    v-model="opened"
+    :size="size"
+  >
     <v-card
       :title="title"
       :text="text"
@@ -45,6 +54,18 @@
 </template>
 
 <style>
+  [size='small'] {
+    width: min(100%, 500px);
+  }
+
+  [size='medium'] {
+    width: min(100%, 700px);
+  }
+
+  [size='large'] {
+    width: min(100%, 900px);
+  }
+
   .mdi-window-close {
     cursor: pointer;
   }
